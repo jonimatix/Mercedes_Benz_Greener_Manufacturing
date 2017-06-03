@@ -6,7 +6,7 @@ a kaggle competition
   - some cat cols are not in dt_train, but in dt_test
   - some cols are duplicated
   - some cols have the same value
-  - the leaderboard is always a lot higher than local
+  - the leaderboard is always a lot higher than local (try everything to avoid OVERFIT!!!)
 
 ## Init Ideas
   - Cross Validation Strategy
