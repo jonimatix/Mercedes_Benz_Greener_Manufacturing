@@ -13,3 +13,7 @@ a kaggle competition
     - Kfold
     - Stratified Kfold on bin y
     - Group Kfold on all cat cols
+  - Features
+    - give lower weights to single value cols and duplicates cols that appear in the dt_train
+    - user PPtree in R
+    - feature interaction
