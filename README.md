@@ -3,9 +3,9 @@ a kaggle competition
 
 ## Explore
   - all int cols are 1 or 0
-  - some cat cols are not in dt_train, but in dt_test
-  - some cols are duplicated
-  - some cols have the same value
+  - some cat cols hav values are not in dt_train, but in dt_test
+  - some cols are duplicated, some dups in dt_all, some in dt_train but not in dt_test, some the other way around
+  - some cols have the same value in dt_train, but not in dt_test, some the other way around, no cols have same value in dt_all
   - the leaderboard is always a lot higher than local (try everything to avoid OVERFIT!!!)
 
 ## Init Ideas
@@ -15,5 +15,7 @@ a kaggle competition
     - Group Kfold on all cat cols
   - Features
     - give lower weights to single value cols and duplicates cols that appear in the dt_train
+      - rename dup cols
+      - rename single value cols
     - user PPtree in R
     - feature interaction
