@@ -15,7 +15,12 @@ a kaggle competition
     - Group Kfold on all cat cols
   - Features
     - give lower weights to single value cols and duplicates cols that appear in the dt_train
-      - rename dup cols
-      - rename single value cols
+      - drop dup cols in dt_all
+      - rename dt_train and dt_test only dup cols 
+      - rename dt_train and dt_test only single value cols
     - user PPtree in R
     - feature interaction
+    - TargetMean, remember to:
+      - remove outlier
+      - oof
+      - add noise
