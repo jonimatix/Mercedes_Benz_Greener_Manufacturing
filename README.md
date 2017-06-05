@@ -19,6 +19,7 @@ a kaggle competition
       - rename dt_train and dt_test only dup cols 
       - rename dt_train and dt_test only single value cols
       - mark the duplicated rows
+    - PCA, ICA, TSNE, SVG
     - user PPtree in R
     - feature interaction
     - TargetMean, remember to:
