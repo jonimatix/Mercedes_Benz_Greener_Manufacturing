@@ -28,6 +28,10 @@ a kaggle competition
       - Sum
   - Features
     - mark outlier's cols' value
+      - for cat cols
+      - for int cols
+      - for all cols
+      - for X0
     - sum of binary features
     - give lower weights to single value cols and duplicates cols that appear in the dt_train
     - use PPtree in R
