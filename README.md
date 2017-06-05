@@ -18,6 +18,7 @@ a kaggle competition
       - drop dup cols in dt_all
       - rename dt_train and dt_test only dup cols 
       - rename dt_train and dt_test only single value cols
+      - mark the duplicated rows
     - user PPtree in R
     - feature interaction
     - TargetMean, remember to:
