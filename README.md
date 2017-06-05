@@ -9,18 +9,26 @@ a kaggle competition
   - the leaderboard is always a lot higher than local (try everything to avoid OVERFIT!!!)
 
 ## Init Ideas
-  - Cross Validation Strategy
+  - Cross Validation Strategy (K = 10)
     - Kfold
     - Stratified Kfold on bin y
     - Group Kfold on all cat cols
-  - Features
-    - give lower weights to single value cols and duplicates cols that appear in the dt_train
-      - drop dup cols in dt_all
+  - Preprocess
+    - drop dup cols in dt_all
       - rename dt_train and dt_test only dup cols 
       - rename dt_train and dt_test only single value cols
-    - user PPtree in R
+    - mark the duplicated rows
+    - rename single value cols
+    - Encode cat cols
+      - OHE
+      - TargetMean (oof, 3 fold, remove outlier)
+      - Frequency
+      - LabelEncoding??? (need investigation)
+      - Binary
+      - Sum
+  - Features
+    - mark outlier's cols' value
+    - give lower weights to single value cols and duplicates cols that appear in the dt_train
+    - use PPtree in R
     - feature interaction
-    - TargetMean, remember to:
-      - remove outlier
-      - oof
-      - add noise
+    - PCA, ICA, TSNE, SVG
