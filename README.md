@@ -18,6 +18,9 @@ a kaggle competition
       - rename dt_train and dt_test only dup cols 
       - rename dt_train and dt_test only single value cols
     - mark the duplicated rows
+      - all cols
+      - int cols
+      - cat cols
     - rename single value cols
     - Encode cat cols
       - OHE
