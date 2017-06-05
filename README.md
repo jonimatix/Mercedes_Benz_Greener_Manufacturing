@@ -23,11 +23,12 @@ a kaggle competition
       - OHE
       - TargetMean (oof, 3 fold, remove outlier)
       - Frequency
-      - LabelEncoding??? (need investigation)
+      - Ordinal (order cat by its mean of y)
       - Binary
       - Sum
   - Features
     - mark outlier's cols' value
+    - sum of binary features
     - give lower weights to single value cols and duplicates cols that appear in the dt_train
     - use PPtree in R
     - feature interaction
