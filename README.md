@@ -13,14 +13,15 @@ a kaggle competition
     - Kfold
     - Stratified Kfold on bin y
     - Group Kfold on all cat cols
-  - Features
-    - give lower weights to single value cols and duplicates cols that appear in the dt_train
-      - drop dup cols in dt_all
+  - Preprocess
+    - drop dup cols in dt_all
       - rename dt_train and dt_test only dup cols 
       - rename dt_train and dt_test only single value cols
-      - mark the duplicated rows
+    - mark the duplicated rows
     - PCA, ICA, TSNE, SVG
-    - user PPtree in R
+  - Features
+    - give lower weights to single value cols and duplicates cols that appear in the dt_train
+    - use PPtree in R
     - feature interaction
     - TargetMean, remember to:
       - remove outlier
