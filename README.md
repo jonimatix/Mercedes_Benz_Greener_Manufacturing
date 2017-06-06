@@ -14,20 +14,28 @@ a kaggle competition
     - Stratified Kfold on bin y
     - Group Kfold on all cat cols
   - Preprocess
-    - drop dup cols in dt_all
-      - rename dt_train and dt_test only dup cols 
-      - rename dt_train and dt_test only single value cols
-    - mark the duplicated rows
-    - rename single value cols
+    - drop dup cols in dt_all (Done)
+      - rename dt_train and dt_test only dup cols (Done)
+      - rename dt_train and dt_test only single value cols (Done)
+    - mark the duplicated rows (Done)
+      - all cols (Done)
+      - int cols (Done)
+      - cat cols (Done)
+    - rename single value cols (Done)
+    - remove complimentary cols (Done)
     - Encode cat cols
-      - OHE
-      - TargetMean (oof, 3 fold, remove outlier)
-      - Frequency
-      - LabelEncoding??? (need investigation)
-      - Binary
-      - Sum
+      - OHE (Done)
+      - TargetMean (oof, 3 fold, remove outlier) (Done)
+      - Frequency (Done)
+      - Binary (Done)
+      - Ordinal (for X0 and X5)
   - Features
-    - mark outlier's cols' value
+    - mark outlier's cols' value (Done)
+      - for cat cols (Done)
+      - for int cols (Done)
+      - for all cols (Done)
+      - for X0 (Done)
+    - sum of binary features
     - give lower weights to single value cols and duplicates cols that appear in the dt_train
     - use PPtree in R
     - feature interaction
