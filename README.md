@@ -35,8 +35,21 @@ a kaggle competition
       - for int cols (Done)
       - for all cols (Done)
       - for X0 (Done)
-    - sum of binary features
+    - sum of binary features (Done)
+      - all binary (Done)
+      - most important 3, 5, 10, 20, 50 binary cols (Done)
+    - Dimension Reduction
+      - PCA
+      - ICA (what is it?)
+      - SVD
+      - FA
+      - TSNE
+      - SVG
     - give lower weights to single value cols and duplicates cols that appear in the dt_train
     - use PPtree in R
     - feature interaction
-    - PCA, ICA, TSNE, SVG
+  - Model Tuning
+    - pipline and cv all parameters
+      - Dimension Reduction n_component
+      - model params
+      - feature sets
