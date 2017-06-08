@@ -45,7 +45,6 @@ a kaggle competition
       - FA
       - Logistic PCA
       - TSNE
-      - SVG
     - give lower weights to single value cols and duplicates cols that appear in the dt_train
     - use PPtree in R
     - feature interaction
