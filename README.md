@@ -43,6 +43,7 @@ a kaggle competition
       - ICA (what is it?)
       - SVD
       - FA
+      - Logistic PCA
       - TSNE
       - SVG
     - give lower weights to single value cols and duplicates cols that appear in the dt_train
