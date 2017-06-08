@@ -21,6 +21,7 @@ a kaggle competition
       - all cols (Done)
       - int cols (Done)
       - cat cols (Done)
+      - mean y of dup rows
     - rename single value cols (Done)
     - remove complimentary cols (Done)
     - Encode cat cols
@@ -43,8 +44,8 @@ a kaggle competition
       - ICA (what is it?)
       - SVD
       - FA
+      - Logistic PCA
       - TSNE
-      - SVG
     - give lower weights to single value cols and duplicates cols that appear in the dt_train
     - use PPtree in R
     - feature interaction
