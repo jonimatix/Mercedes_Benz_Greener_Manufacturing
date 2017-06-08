@@ -21,6 +21,7 @@ a kaggle competition
       - all cols (Done)
       - int cols (Done)
       - cat cols (Done)
+      - mean y of dup rows
     - rename single value cols (Done)
     - remove complimentary cols (Done)
     - Encode cat cols
