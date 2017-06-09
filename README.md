@@ -13,7 +13,7 @@ a kaggle competition
     - Kfold
     - Stratified Kfold on bin y
     - Group Kfold on all cat cols
-  - Preprocess
+  - Clean
     - drop dup cols in dt_all (Done)
       - rename dt_train and dt_test only dup cols (Done)
       - rename dt_train and dt_test only single value cols (Done)
@@ -24,13 +24,15 @@ a kaggle competition
       - mean y of dup rows
     - rename single value cols (Done)
     - remove complimentary cols (Done)
-    - Encode cat cols
-      - OHE (Done)
-      - TargetMean (oof, 3 fold, remove outlier) (Done)
-      - Frequency (Done)
-      - Binary (Done)
-      - Ordinal (for X0 and X5)
+   - Encode
+     - OHE (Done)
+     - TargetMean (oof, 3 fold, remove outlier) (Done)
+     - TargetMedian
+     - Frequency (Done)
+     - Binary (Done)
+     - Ordinal (for X0 and X5)
   - Features
+    - ID
     - mark outlier's cols' value (Done)
       - for cat cols (Done)
       - for int cols (Done)
@@ -39,6 +41,8 @@ a kaggle competition
     - sum of binary features (Done)
       - all binary (Done)
       - most important 3, 5, 10, 20, 50 binary cols (Done)
+    - mean of y of IDs who are nearest
+    - targetMean and targetMedian
     - Dimension Reduction
       - PCA
       - ICA (what is it?)
