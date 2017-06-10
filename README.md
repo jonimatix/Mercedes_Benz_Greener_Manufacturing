@@ -21,7 +21,7 @@ a kaggle competition
       - all cols (Done)
       - int cols (Done)
       - cat cols (Done)
-      - mean y of dup rows
+      - mean y of dup rows (what about test?)
     - rename single value cols (Done)
     - remove complimentary cols (Done)
    - Encode
@@ -30,9 +30,9 @@ a kaggle competition
      - TargetMedian
      - Frequency (Done)
      - Binary (Done)
-     - Ordinal (for X0 and X5)
+     - Ordinal (Done)
   - Features
-    - ID
+    - ID (Done)
     - mark outlier's cols' value (Done)
       - for cat cols (Done)
       - for int cols (Done)
@@ -41,18 +41,17 @@ a kaggle competition
     - sum of binary features (Done)
       - all binary (Done)
       - most important 3, 5, 10, 20, 50 binary cols (Done)
-    - mean of y of IDs who are nearest
-    - targetMean and targetMedian
+    - mean of y of IDs who are nearest (Done)
     - Dimension Reduction
-      - PCA
-      - ICA (what is it?)
-      - SVD
-      - FA
-      - Logistic PCA
-      - TSNE
+      - PCA (Done)
+      - ICA (Done)
+      - SVD (Done)
+      - FA (Done)
+      - Logistic PCA (havent done)
+      - TSNE (Done)
     - give lower weights to single value cols and duplicates cols that appear in the dt_train
     - use PPtree in R
-    - feature interaction
+    - feature interaction (XOR)
   - Model Tuning
     - pipline and cv all parameters
       - Dimension Reduction n_component
