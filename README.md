@@ -57,3 +57,7 @@ a kaggle competition
       - Dimension Reduction n_component
       - model params
       - feature sets
+## Revised, TODO
+- use train and test, instead of dt_all
+- features: distance to outliers
+- multiple models ensemble
