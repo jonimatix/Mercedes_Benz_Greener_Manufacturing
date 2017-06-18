@@ -2,12 +2,13 @@ require(xgboost)
 require(MLmetrics)
 
 ls_records = list()
-for(i in 1){
+for(j in 1:100){
   
   # select features ---------------------------------------------------------
   
   cols_featSets = c("Encode_Label"
-                    , "PCA", "ICA", "SVD", "FA", "GRP", "SRP")
+                    , "PCA", "ICA", "SVD", "FA", "GRP", "SRP"
+                    , "1770_TargetMean_Distant", "1770_Match", "1770_Distant", "1770_Abs_Distant", "1770_Match_Bin_Sum")
   
   n_featSets = sample(1:length(cols_featSets), 1)
   cols_featSets_sample_toDrop = sample(cols_featSets, n_featSets)
@@ -17,6 +18,7 @@ for(i in 1){
   cols_sample = names(dt_all)[!grepl(regex_cols_featSets_toDrop, names(dt_all))]
   
   dt_featSelected = dt_all[, cols_sample, with = F]
+  print(dim(dt_featSelected))
   
   # metrics -----------------------------------------------------------------
   
@@ -46,7 +48,6 @@ for(i in 1){
   # params ------------------------------------------------------------------
   
   params_xgb = list(
-    # seed = 123
     subsample = 0.9
     , colsample_bytree = 0.9
     , eta = 0.005
@@ -55,7 +56,7 @@ for(i in 1){
     , min_child_weight = 0
     , alpha = 1
     , lamda = 2
-    , gamma = 10
+    , gamma = 20
     , num_parallel_tree = 1
     , booster = "gbtree"
     , base_score = mean(y_train)
@@ -65,9 +66,9 @@ for(i in 1){
   # xgb.cv ------------------------------------------------------------------
   
   score_folds = c()
-  for(i in 1:1){
+  for(i in 1:5){
     
-    set.seed(i * 888)
+    # set.seed(i * 888)
     cv_xgb = xgb.cv(params_xgb
                     , dmx_train
                     , nrounds = 10000
@@ -91,7 +92,7 @@ for(i in 1){
   
   # record ------------------------------------------------------------------
   
-  ls_records[[i]] = list(cols_featSets_sample_toDrop = cols_featSets_sample_toDrop
+  ls_records[[j]] = list(cols_featSets_sample_toDrop = cols_featSets_sample_toDrop
                          , score_mean = score_mean
                          , score_sd = score_sd)
   
@@ -101,8 +102,8 @@ for(i in 1){
 
 
 
-
-
+which_score_max = which.max(unlist(lapply(ls_records, function(x){x$score_mean})))
+ls_records[[which_score_max]]
 
 
 

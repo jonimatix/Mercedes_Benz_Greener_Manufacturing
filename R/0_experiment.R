@@ -1,11 +1,12 @@
 require(xgboost)
+source("R/0_utils.R")
 require(MLmetrics)
 
 
 # select features ---------------------------------------------------------
 
-# dt_all = dt_all[, names(dt_all)[!grepl("LPC", names(dt_all))], with = F]
-
+# dt_all = dt_all[, names(dt_all)[!grepl("SVD|ICA|SRP|GRP|PCA|FA|1770_Match_Bin_Sum|1770_Match|1770_Distant", names(dt_all))], with = F]
+dim(dt_all)
 
 # metrics -----------------------------------------------------------------
 
@@ -34,8 +35,8 @@ ids_test = X_test$ID
 # params ------------------------------------------------------------------
 
 params_xgb = list(
-  # seed = 123
-  subsample = 0.9
+  seed = 123
+  , subsample = 0.9
   , colsample_bytree = 0.9
   , eta = 0.005
   , objective = 'reg:linear'
@@ -43,7 +44,7 @@ params_xgb = list(
   , min_child_weight = 0
   , alpha = 1
   , lamda = 2
-  , gamma = 10
+  , gamma = 20
   , num_parallel_tree = 1
   , booster = "gbtree"
   , base_score = mean(y_train)
@@ -54,7 +55,7 @@ params_xgb = list(
 
 for(i in 1:5){
   
-  set.seed(i * 888)
+  set.seed(i)
   cv_xgb = xgb.cv(params_xgb
                   , dmx_train
                   , nrounds = 10000
@@ -62,6 +63,7 @@ for(i in 1:5){
                   , early_stopping_rounds = 50
                   , print_every_n = 50
                   , verbose = 1
+                  # , obj = pseudo_huber
                   , feval = xg_R_squared
                   , maximize = T)
   
@@ -70,10 +72,20 @@ for(i in 1:5){
 
 # model -------------------------------------------------------------------
 
-model_xgb = xgb.train(params_xgb, dmx_train
+vec_preds_y = rep(0, length(ids_test))
+n = 10
+for(i in 1:n){
+  
+  model_xgb = xgb.train(params_xgb, dmx_train
                       , nrounds = cv_xgb$best_iteration
                       , feval = xg_R_squared
                       , maximize = T)
+  
+  preds_y = predict(model_xgb, dmx_test)
+  vec_preds_y = vec_preds_y + preds_y / n
+  
+}
+
 
 
 # importance --------------------------------------------------------------
@@ -83,10 +95,11 @@ xgb.ggplot.importance(xgb.importance(names(X_train), model = model_xgb), top_n =
 
 # submit ------------------------------------------------------------------
 
-preds_y = predict(model_xgb, dmx_test)
+# preds_y = predict(model_xgb, dmx_test)
 dt_submit = data.table(ID = ids_test
-                       , y = preds_y)
+                       # , y = preds_y
+                       , y = vec_preds_y)
 head(dt_submit)
 dim(dt_submit)
 
-# write.csv(dt_submit, "../data/Mercedes_Benz_Greener_Manufacturing/submission/21_R_basic_targetMean_full_tuned_params.csv", row.names = F)
+write.csv(dt_submit, "../data/Mercedes_Benz_Greener_Manufacturing/submission/24_outlier_1770_more_dimensionReduction_gamma20.csv", row.names = F)

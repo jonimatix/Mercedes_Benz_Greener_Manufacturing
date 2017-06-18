@@ -20,3 +20,96 @@ for(col in cols_cat){
 }
 
 dim(dt_all)
+
+
+# outlier 1770 -------------------------------------------------------------
+
+dt_outlier = dt_all[ID == 1770]
+
+################
+# original cat #
+################
+cols = cols_cat
+
+# exact match
+for(col in cols){
+  
+  dt_all[, paste0("Outlier_1770_Match_", col) := ifelse(get(col) == dt_outlier[[col]], 1, 0)]
+  
+}
+
+# sum of matches
+cols_toSum = paste0("Outlier_1770_Match_", cols)
+dt_all$Outlier_1770_Match_Cat_Sum = rowSums(dt_all[, cols_toSum, with = F])
+
+###############
+# labeled cat #
+###############
+cols = names(dt_all)[grepl("Encode_Label", names(dt_all))]
+
+# distant match
+for(col in cols){
+  
+  dt_all[, paste0("Outlier_1770_Distant_", col) := get(col) - dt_outlier[[col]]]
+  dt_all[, paste0("Outlier_1770_Abs_Distant_", col) := abs(get(col) - dt_outlier[[col]])]
+  
+}
+
+# sum of matches
+cols_toSum = paste0("Outlier_1770_Distant_", cols)
+dt_all$Outlier_1770_Distant_Cat_Sum = rowSums(dt_all[, cols_toSum, with = F])
+cols_toSum = paste0("Outlier_1770_Abs_Distant_", cols)
+dt_all$Outlier_1770_Abs_Distant_Cat_Sum = rowSums(dt_all[, cols_toSum, with = F])
+
+##################
+# targetMean cat #
+##################
+cols = names(dt_all)[grepl("Encode_TargetMean", names(dt_all))]
+
+# distant match
+for(col in cols){
+  
+  dt_all[, paste0("Outlier_1770_TargetMean_Distant_", col) := get(col) - dt_outlier[[col]]]
+  
+}
+
+# sum of matches
+cols_toSum = paste0("Outlier_1770_TargetMean_Distant_", cols)
+dt_all$Outlier_1770_TargetMean_Distant_Cat_Sum = rowSums(dt_all[, cols_toSum, with = F])
+
+################
+# original bin #
+################
+cols = cols_bin
+
+# sum of matches
+sum_match = rep(0, nrow(dt_all))
+for(col in cols){
+  
+  is_match = dt_all[, ifelse(get(col) == dt_outlier[[col]], 1, 0)]
+  sum_match = sum_match + is_match
+}
+
+dt_all$Outlier_1770_Match_Bin_Sum = sum_match
+
+###############################################
+# X314, X29, X265, X47, X261, X54, X118, X315 #
+###############################################
+cols = c("X314", "X29", "X265", "X47", "X261", "X54", "X118", "X315")
+
+# exact match
+for(col in cols){
+  
+  dt_all[, paste0("Outlier_1770_Match_", col) := ifelse(get(col) == dt_outlier[[col]], 1, 0)]
+  
+}
+
+# sum of matches
+cols_toSum = paste0("Outlier_1770_Match_", cols)
+dt_all$Outlier_1770_Match_Important_Bin_Sum = rowSums(dt_all[, cols_toSum, with = F])
+
+
+
+# outliers ----------------------------------------------------------------
+
+
