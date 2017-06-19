@@ -53,7 +53,7 @@ params_xgb = list(
 
 # xgb.cv ------------------------------------------------------------------
 
-for(i in 1:5){
+for(i in 1:1){
   
   set.seed(i)
   cv_xgb = xgb.cv(params_xgb
@@ -76,6 +76,7 @@ vec_preds_y = rep(0, length(ids_test))
 n = 10
 for(i in 1:n){
   
+  cat(paste0(i, " --> "))
   model_xgb = xgb.train(params_xgb, dmx_train
                       , nrounds = cv_xgb$best_iteration
                       , feval = xg_R_squared
@@ -102,4 +103,4 @@ dt_submit = data.table(ID = ids_test
 head(dt_submit)
 dim(dt_submit)
 
-write.csv(dt_submit, "../data/Mercedes_Benz_Greener_Manufacturing/submission/24_outlier_1770_more_dimensionReduction_gamma20.csv", row.names = F)
+write.csv(dt_submit, "../data/Mercedes_Benz_Greener_Manufacturing/submission/27_base_R_more_pca_ica_dimensionReduce_separately.csv", row.names = F)

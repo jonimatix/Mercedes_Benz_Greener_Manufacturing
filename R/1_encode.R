@@ -5,6 +5,7 @@ cols_bin = cols_bin[!cols_bin %in% "ID"]
 # ordered label -----------------------------------------------------------
 
 for(col in cols_cat){
+  
   values = unique(dt_all[[col]])
   values_sorted = sort(values)
   values_sorted_final = values_sorted[order(nchar(values_sorted))]

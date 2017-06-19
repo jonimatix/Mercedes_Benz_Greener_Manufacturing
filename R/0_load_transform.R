@@ -22,3 +22,21 @@ ids_test = dt_test_raw$ID
 dt_all = rbind(dt_train_raw, dt_test_raw)
 
 dim(dt_all)
+
+
+
+# clean -------------------------------------------------------------------
+
+# remove single value
+cols_single = c()
+for(col in names(dt_train_raw)){
+  
+  len_col = length(unique(dt_train_raw[[col]]))
+  if(len_col == 1){
+    cols_single = c(cols_single, col)
+  }
+  
+}
+
+dt_all = dt_all[, !cols_single, with = F]
+dim(dt_all)
