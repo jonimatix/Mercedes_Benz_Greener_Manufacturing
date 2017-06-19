@@ -1,3 +1,4 @@
+rm(list = ls()); gc();
 require(data.table)
 
 
@@ -9,19 +10,19 @@ dt_test_raw = fread("../data/Mercedes_Benz_Greener_Manufacturing/raw/test.csv")
 
 
 
-# transform ---------------------------------------------------------------
-
-dt_test_raw$y = 0
-dt_test_raw = dt_test_raw[, names(dt_train_raw), with = F]
-
-# ids
-ids_train = dt_train_raw$ID
-ids_test = dt_test_raw$ID
-
-# combind
-dt_all = rbind(dt_train_raw, dt_test_raw)
-
-dim(dt_all)
+# # transform ---------------------------------------------------------------
+# 
+# dt_test_raw$y = 0
+# dt_test_raw = dt_test_raw[, names(dt_train_raw), with = F]
+# 
+# # ids
+# ids_train = dt_train_raw$ID
+# ids_test = dt_test_raw$ID
+# 
+# # combind
+# dt_all = rbind(dt_train_raw, dt_test_raw)
+# 
+# dim(dt_all)
 
 
 
@@ -38,5 +39,7 @@ for(col in names(dt_train_raw)){
   
 }
 
-dt_all = dt_all[, !cols_single, with = F]
-dim(dt_all)
+dt_train_raw = dt_train_raw[, !cols_single, with = F]
+dt_test_raw = dt_test_raw[, !cols_single, with = F]
+
+dim(dt_train_raw); dim(dt_test_raw)

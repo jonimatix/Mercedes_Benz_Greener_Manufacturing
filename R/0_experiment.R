@@ -6,7 +6,8 @@ require(MLmetrics)
 # select features ---------------------------------------------------------
 
 # dt_all = dt_all[, names(dt_all)[!grepl("SVD|ICA|SRP|GRP|PCA|FA|1770_Match_Bin_Sum|1770_Match|1770_Distant", names(dt_all))], with = F]
-dim(dt_all)
+dt_train_raw = dt_train_raw[, names(dt_train_raw)[!grepl("Encode_TargetMean_", names(dt_train_raw))], with = F]
+dim(dt_train_raw)
 
 # metrics -----------------------------------------------------------------
 
@@ -21,9 +22,10 @@ xg_R_squared = function (yhat, dtrain) {
 
 # X, y --------------------------------------------------------------------
 
-X_train = dt_all[, !c("y", cols_cat), with = F][ID %in% ids_train]
-X_test = dt_all[, !c("y", cols_cat), with = F][ID %in% ids_test]
-y_train = dt_all[ID %in% ids_train, y]
+X_train = dt_train_raw[, !c("y", cols_cat), with = F]
+y_train = dt_train_raw[, y]
+
+X_test = dt_test_raw[, !cols_cat, with = F]
 
 
 # xgb.DMatrix -------------------------------------------------------------
@@ -53,21 +55,18 @@ params_xgb = list(
 
 # xgb.cv ------------------------------------------------------------------
 
-for(i in 1:1){
+cv_xgb = xgb.cv(params_xgb
+                , dmx_train
+                , nrounds = 10000
+                , nfold = 10
+                , early_stopping_rounds = 50
+                , print_every_n = 50
+                , verbose = 1
+                # , obj = pseudo_huber
+                , feval = xg_R_squared
+                , maximize = T)
   
-  set.seed(i)
-  cv_xgb = xgb.cv(params_xgb
-                  , dmx_train
-                  , nrounds = 10000
-                  , nfold = 10
-                  , early_stopping_rounds = 50
-                  , print_every_n = 50
-                  , verbose = 1
-                  # , obj = pseudo_huber
-                  , feval = xg_R_squared
-                  , maximize = T)
-  
-}
+
 
 
 # model -------------------------------------------------------------------
@@ -103,4 +102,4 @@ dt_submit = data.table(ID = ids_test
 head(dt_submit)
 dim(dt_submit)
 
-write.csv(dt_submit, "../data/Mercedes_Benz_Greener_Manufacturing/submission/27_base_R_more_pca_ica_dimensionReduce_separately.csv", row.names = F)
+write.csv(dt_submit, "../data/Mercedes_Benz_Greener_Manufacturing/submission/29_base_R_no_TargetMean_more_pca_ica_dimensionReduce_separately_correctdly.csv", row.names = F)

@@ -55,19 +55,19 @@ n_comp = 50
 #  pca --------------------------------------------------------------------
 
 set.seed(888)
-dr_pca = preProcess(dt_all[ID %in% ids_train, !c("y", cols_cat), with = F]
+dr_pca = preProcess(dt_train_raw[, !c("y", cols_cat), with = F]
                     , method = "pca"
                     , thresh = .95
                     , uniqueCut = 1
                     # , pcaComp = n_comp
 )
-dt_pca_train = predict(dr_pca, dt_all[ID %in% ids_train, !c("y", cols_cat), with = F])
-dt_pca_test = predict(dr_pca, dt_all[ID %in% ids_test, !c("y", cols_cat), with = F])
+dt_pca_train = predict(dr_pca, dt_train_raw[, !c("y", cols_cat), with = F])
+dt_pca_test = predict(dr_pca, dt_test_raw[, !c(cols_cat), with = F])
 
 
 # ica ---------------------------------------------------------------------
 
-dr_ica_train = fastICA(dt_all[ID %in% ids_train, !c("y", cols_cat), with = F]
+dr_ica_train = fastICA(dt_train_raw[, !c("y", cols_cat), with = F]
                  , n.comp = n_comp
                  , alg.typ = "parallel"
                  , fun = "logcosh"
@@ -77,7 +77,7 @@ dr_ica_train = fastICA(dt_all[ID %in% ids_train, !c("y", cols_cat), with = F]
 dt_ica_train = as.data.table(dr_ica_train$S)
 setnames(dt_ica_train, names(dt_ica_train), paste0("ICA_", 1:n_comp))
 
-dr_ica_test = fastICA(dt_all[ID %in% ids_test, !c("y", cols_cat), with = F]
+dr_ica_test = fastICA(dt_test_raw[, !c(cols_cat), with = F]
                        , n.comp = n_comp
                        , alg.typ = "parallel"
                        , fun = "logcosh"
@@ -91,10 +91,14 @@ setnames(dt_ica_test, names(dt_ica_test), paste0("ICA_", 1:n_comp))
 
 # combine -----------------------------------------------------------------
 
-dt_all = cbind(dt_all, rbind(dt_pca_train, dt_pca_test))
-dt_all = cbind(dt_all, rbind(dt_ica_train, dt_ica_test))
+# pca
+dt_train_raw = cbind(dt_train_raw, dt_pca_train)
+dt_test_raw = cbind(dt_test_raw, dt_pca_test)
+# ica
+dt_train_raw = cbind(dt_train_raw, dt_ica_train)
+dt_test_raw = cbind(dt_test_raw, dt_ica_test)
 
-dim(dt_all)
+dim(dt_train_raw); dim(dt_test_raw)
 
 
 
@@ -102,4 +106,5 @@ dim(dt_all)
 
 ## save ##
 
-write.csv(dt_all, "../data/Mercedes_Benz_Greener_Manufacturing/data/R/dt_dimensionReducce.csv", row.names = F)
+write.csv(dt_train_raw, "../data/Mercedes_Benz_Greener_Manufacturing/data/R/dt_dimensionReducce_train.csv", row.names = F)
+write.csv(dt_test_raw, "../data/Mercedes_Benz_Greener_Manufacturing/data/R/dt_dimensionReducce_test.csv", row.names = F)
