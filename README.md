@@ -9,9 +9,9 @@ a kaggle competition
   - the leaderboard is always a lot higher than local (try everything to avoid OVERFIT!!!)
 
 ## Init Ideas
-  - Cross Validation Strategy (K = 10)
+  - Cross Validation Strategy
     - Kfold
-    - Stratified Kfold on bin y
+    - Stratified Kfold on bin y (k = 8)
     - Group Kfold on all cat cols
   - Clean
     - drop dup cols in dt_all (Done)
@@ -59,5 +59,7 @@ a kaggle competition
       - feature sets
 ## Revised, TODO
 - use train and test, instead of dt_all
-- features: distance to outliers
+- architecture: skf oof
+  - features: oof distance to outliers
+  - features: oof targetMean inside of skf targetMean 
 - multiple models ensemble
