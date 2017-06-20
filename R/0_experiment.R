@@ -38,8 +38,8 @@ ids_test = X_test$ID
 
 params_xgb = list(
   seed = 123
-  , subsample = 0.9
-  , colsample_bytree = 0.9
+  , subsample = 0.85
+  , colsample_bytree = 0.8
   , eta = 0.005
   , objective = 'reg:linear'
   , max_depth = 2
@@ -102,4 +102,4 @@ dt_submit = data.table(ID = ids_test
 head(dt_submit)
 dim(dt_submit)
 
-write.csv(dt_submit, "../data/Mercedes_Benz_Greener_Manufacturing/submission/29_base_R_no_TargetMean_more_pca_ica_dimensionReduce_separately_correctdly.csv", row.names = F)
+# write.csv(dt_submit, "../data/Mercedes_Benz_Greener_Manufacturing/submission/29_base_R_no_TargetMean_more_pca_ica_dimensionReduce_separately_correctdly.csv", row.names = F)
