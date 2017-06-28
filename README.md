@@ -58,6 +58,8 @@ a kaggle competition
       - model params
       - feature sets
 ## Revised, TODO
+- Symbolic Transformer (http://gplearn.readthedocs.io/en/latest/examples.html#example-2-symbolic-tranformer)
+- try aggregate duplicates (take the max?)
 - use train and test, instead of dt_all
 - architecture: skf oof
   - features: oof distance to outliers
